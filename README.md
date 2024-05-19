@@ -1,5 +1,6 @@
 # F57SPAMBOT
 FUCKSCAMMERS
+import concurrent.futures
 import logging
 import random
 from telegram import Bot

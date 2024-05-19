@@ -6,10 +6,10 @@ from telegram import Bot
 from telegram.error import TelegramError
 
 # Imposta il bot Telegram con il tuo token
-bot = Bot(token='7186653711:AAHHs6cM2tk4pY4epPmnZylQgbf_XyBzs-o')
+bot = Bot(token=YOUR BOT TOKEN
 
 # ID della chat di destinazione
-target_chat_id = 584484883
+target_chat_id = CHAD ID TO SPAMMING
 
 # Lista di messaggi da inviare
 messages = [

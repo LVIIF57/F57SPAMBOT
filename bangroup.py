@@ -2,7 +2,7 @@ import requests
 from urllib.parse import urlparse
 
 def banna_gruppo_per_link(link_gruppo):
-    token = "7186653711:AAGKDyG-G9MZw0SS4dTW2x0DzUf_SC9KB5s"
+    token = "YOUR TOKEN BOT ¥_¥"
     url = f"https://api.telegram.org/bot{token}/kickChatMember"
     
     parsed_link = urlparse(link_gruppo)
@@ -20,5 +20,5 @@ def banna_gruppo_per_link(link_gruppo):
     else:
         print("Impossibile bannare il gruppo")
 
-link_gruppo = "https://t.me/tbt_family"
+link_gruppo = "GROUP SCAMMER LINK ¥_¥"
 banna_gruppo_per_link(link_gruppo)

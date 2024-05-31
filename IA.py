@@ -3,8 +3,7 @@ import requests
 url = "https://api.openai.com/v1/chat/completions"
 headers = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer rp-rO4osnsysQi3R5HPpqaYwIvXLgDdgdGJWjGC3Y61EeR4E6d9"
-}
+    "Authorization": "Bearer •API TOKEN•
 
 def get_input_response(input_text):
     data = {

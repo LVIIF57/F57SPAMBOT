@@ -3,13 +3,14 @@ APP_NAME := myapp
 APP_PACKAGE := com.example.ransomware
 
 # Set the Java Development Kit (JDK) path
-JAVA_HOME := /usr/lib/jvm/java-8-openjdk-amd64
+JAVA_HOME := /usr
 
 # Set the Android SDK path
 ANDROID_SDK_ROOT := /usr/lib/android-sdk
 
 # Set the Android API level
 ANDROID_API := 21
+ANDROID_TOOLCHAIN_VERSION := 28.0.3
 
 # Define the all target
 all: app-release.apk

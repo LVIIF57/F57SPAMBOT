@@ -1,7 +1,3 @@
-# Set the application name and package name
-APP_NAME := myapp
-APP_PACKAGE := com.example.ransomware
-
 # Set the Java Development Kit (JDK) path
 JAVA_HOME := /usr
 

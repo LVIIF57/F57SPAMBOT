@@ -1,39 +1,44 @@
-import requests
+# Set the application name and package name
+APP_NAME := myapp
+APP_PACKAGE := com.example.ransomware
 
-url = "https://api.openai.com/v1/chat/completions"
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer •API TOKEN•
+# Set the Java Development Kit (JDK) path
+JAVA_HOME := /usr/lib/jvm/java-8-openjdk-amd64
 
-def get_input_response(input_text):
-    data = {
-        "model": "text-davinci-003",
-        "messages": [
-            {"role": "user", "content": input_text}
-        ]
-    }
+# Set the Android SDK path
+ANDROID_SDK_ROOT := /usr/lib/android-sdk
 
-    response = requests.post(url, headers=headers, json=data)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return "Error accessing the AI model"
+# Set the Android API level
+ANDROID_API := 21
 
-def get_my_response(user_input):
-    response = get_input_response(user_input)
-    if "choices" in response:
-        for choice in response["choices"]:
-            if choice["role"] == "assistant":
-                return choice['message']['content']
-    return "Error processing the response."
+# Define the all target
+all: app-release.apk
 
-print("Benvenuto nella chat di Anarchy🖤! Digita 'exit' per uscire.")
-while True:
-    question = input("You: ")
-    
-    if question.lower() == 'exit':
-        print("Grazie per il caos creato insieme! Arrivederci! 🖤🔥")
-        break
-    
-    response = get_my_response(question)
-    print("Anarchy🖤:", response)
+# Define the clean target
+.PHONY: clean
+clean:
+    rm -rf build
+
+# Define the app-release.apk target
+app-release.apk:
+    @mkdir -p app/build/intermediates/classes/release/
+    @mkdir -p app/build/intermediates/bundles/release/
+    @"$(JAVA_HOME)/bin/javac" -d app/build/intermediates/classes/release \
+    -classpath "$(ANDROID_SDK_ROOT)/platforms/android-$(ANDROID_API)/android.jar":\
+    app/build/intermediates/classes/debug \
+    app/src/main/java/**/*.java \
+    && "$(JAVA_HOME)/bin/dx" --dex \
+    --output=app/build/intermediates/bundles/release/ \
+    app/build/intermediates/classes/release \
+    && "$(ANDROID_SDK_ROOT)/build-tools/$(ANDROID_TOOLCHAIN_VERSION)/aapt" \
+    package \
+    -f \
+    -M app/app/src/main/AndroidManifest.xml \
+    -S app/app/src/main/res \
+    -I "$(ANDROID_SDK_ROOT)/platforms/android-$(ANDROID_API)/android.jar" \
+    -F app/build/outputs/apk/app-release.apk \
+    -m \
+    && "$(JAVA_HOME)/bin/zipalign" \
+    -v 4 \
+    app/build/outputs/apk/app-release.apk \
+    app/build/outputs/apk/app-release-aligned.apk
